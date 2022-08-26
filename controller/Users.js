@@ -66,7 +66,7 @@ export const Login = async(req,res)=>{
 }
 
 export const Logout = async(req,res)=>{
-    const refreshToken = req.cookie.refreshToken;
+    const refreshToken = req.cookies.refreshToken;
     if(!refreshToken) return res.sendStatus(204);
     const user = await Users.findAll({
         where:{

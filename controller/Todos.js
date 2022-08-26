@@ -6,7 +6,9 @@ export const getTodos = async(req,res)=>{
         const todos = await Todos.findAll({
             attributes:['id','todo','completed','createdAt','updatedAt']
         });
-        res.json(todos);
+        res.json({
+            msg:"Data berhasil diambil",
+            todos:todos});
     } catch (error) {
         console.log(error);
     }
@@ -29,13 +31,14 @@ export const addTodo = async(req,res)=>{
     if(!user[0]) return res.sendStatus(204);
     const userId = user[0].id;
     try {
-        await Todos.create({
+        const data =  await Todos.create({
             todo:todo,
             completed:completed,
             userId:userId
         })
         res.json({
-            msg: "Data berhasil ditambahkan"
+            msg: "Data berhasil ditambahkan",
+            data: data
         });
     } catch (error) {
         console.log(error)
@@ -61,7 +64,7 @@ export const updateTodo = async(req,res)=>{
             updatedAt: 'updateTimestamp'
         });
         return res.json({
-            msg: "Data berhasil diupdate"
+            msg: "Data berhasil diupdate",
         });
     } catch (error) {
         console.log(error);

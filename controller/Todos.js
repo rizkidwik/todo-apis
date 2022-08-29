@@ -2,13 +2,17 @@ import Todos from "../model/TodoModel.js";
 import jwt from "jsonwebtoken";
 import Users from "../model/UserModel.js";
 export const getTodos = async(req,res)=>{
+    let limit=Number(req.query.limit);
     try {
         const todos = await Todos.findAll({
-            attributes:['id','todo','completed','createdAt','updatedAt']
+            attributes:['id','todo','completed','createdAt','updatedAt'],
+            limit:limit
         });
         res.json({
             msg:"Data berhasil diambil",
-            todos:todos});
+            todos:todos,
+            limit:limit
+        });
     } catch (error) {
         console.log(error);
     }
